@@ -1,14 +1,16 @@
 import styled, { css } from "styled-components";
 
-interface ContainerProps {
+export interface ContainerProps {
   maxWidth?: string;
   maxHeight?: string;
   alignItems?: string;
   justifyContent?: string;
   flexGrow?: string;
+  padding?: string;
+  margin?: string;
 }
 
-const flex_column = css`
+export const flex_column = css`
   display: flex;
   flex-direction: column;
 `;
@@ -28,14 +30,16 @@ export const FlexColumnExpand = styled.div<ContainerProps>`
   max-height: ${(props) => props.maxHeight || "600px"};
   justify-content: ${(props) => props.justifyContent || "flex-start"};
   align-items: ${(props) => props.alignItems || "center"};
+  padding: ${(props) => props.padding || 0};
 `;
 
 export const FlexRow = styled.div<ContainerProps>`
   display: flex;
   width: 100%;
-  max-width: 90%;
-  justify-content: space-between;
-  align-items: flex-start;
+  max-width: ${(props) => props.maxWidth || "90%"};
+  justify-content: ${(props) => props.justifyContent || "space-between"};
+  align-items: ${(props) => props.alignItems || "flex-start"};
+  margin: ${(props) => props.margin};
 `;
 
 export const BookImage = styled.img.attrs({
@@ -46,7 +50,7 @@ export const BookImage = styled.img.attrs({
   height: 160px;
 `;
 
-export const Input = styled.input`
+export const input_css = css`
   width: 100%;
   max-width: 500px;
   padding: 12px;
@@ -55,11 +59,16 @@ export const Input = styled.input`
   margin: 12px 0 22px;
 `;
 
+export const Input = styled.input`
+  ${input_css}
+`;
+
 interface ButtonProps {
   fontSize?: string;
   height?: string;
   width?: string;
   padding?: string;
+  margin?: string;
 }
 
 export const Button = styled.button<ButtonProps>`
@@ -71,7 +80,7 @@ export const Button = styled.button<ButtonProps>`
   padding: ${(props) => props.padding || "12px"};
   box-sizing: border-box;
   border: 1px solid black;
-  margin-bottom: 16px;
+  margin: ${(props) => props.margin || "0 0 16px 0"};
   background-color: inherit;
 
   :disabled {
@@ -79,6 +88,7 @@ export const Button = styled.button<ButtonProps>`
   }
 `;
 
-export const Text = styled.p<{ fontSize?: string }>`
+export const Text = styled.p<{ fontSize?: string; margin?: string }>`
   font-size: ${(props) => props.fontSize};
+  margin: ${(props) => props.margin};
 `;

@@ -6,5 +6,5 @@ const API_URL = "https://ruptiva-luis-phelipe.herokuapp.com";
 
 export const get = (endpoint: string) => axios.get(`${API_URL}${endpoint}`);
 
-export const post = (endpoint: string, data: any) =>
-  axios.post(`${API_URL}${endpoint}`, data);
+export const post = (endpoint: string, data: any, config?: any) =>
+  axios.post(`${API_URL}${endpoint}`, data, config);

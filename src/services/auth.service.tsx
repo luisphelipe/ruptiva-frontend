@@ -67,7 +67,7 @@ const AuthService = ({ children }: { children: any }) => {
     if (stored_token) setToken(stored_token);
 
     const stored_user = localStorage.getItem(USER_STORAGE_PATH);
-    if (stored_user) setToken(JSON.parse(stored_user));
+    if (stored_user) setUser(JSON.parse(stored_user));
   }, []);
 
   return (

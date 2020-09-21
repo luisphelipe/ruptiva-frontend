@@ -42,7 +42,7 @@ const AuthRoutes = () => {
           <BookEdit />
         </Route>
         {/* Default route */}
-        <Route component={() => <Redirect to="/" />} />
+        <Route component={() => <Redirect to="/new" />} />
       </Switch>
     </Router>
   );

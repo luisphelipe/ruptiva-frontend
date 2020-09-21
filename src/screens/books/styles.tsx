@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Link as DefaultLink } from "react-router-dom";
+import { Form as DefaultForm, Field as DefaultField } from "formik";
+import { flex_column, input_css, ContainerProps } from "../styles";
 
 interface ButtonProps {
   fontSize?: string;
@@ -25,4 +27,35 @@ export const LinkButton = styled(DefaultLink)<ButtonProps>`
   :disabled {
     color: #555;
   }
+`;
+
+export const Form = styled(DefaultForm)<ContainerProps>`
+  ${flex_column};
+  justify-content: ${(props) => props.justifyContent || "center"};
+  align-items: ${(props) => props.alignItems || "flex-start"};
+  height: 100%;
+`;
+
+export const Field = styled(DefaultField)`
+  ${input_css}
+  margin-bottom: 0;
+  resize: vertical;
+`;
+
+export const FieldWrapper = styled.div`
+  margin-bottom: 22px;
+`;
+
+export const Error = styled.div`
+  font-size: 16px;
+  color: red;
+`;
+
+export const Link = styled(DefaultLink)`
+  color: black;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid black;
 `;
