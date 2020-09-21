@@ -1,15 +1,15 @@
 import React, { useState, useContext } from "react";
 import AuthContext from "../../../contexts/auth.context";
 
-import ErrorList from "../ErrorList";
+import ErrorList from "../../../components/ErrorList";
 import {
   FlexColumnExpand,
-  BookImage,
   FlexColumn,
+  BookImage,
   Input,
   Button,
-  Link,
-} from "../style";
+} from "../../styles";
+import { Link } from "../styles";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -29,7 +29,7 @@ const Login = () => {
   };
 
   return (
-    <FlexColumnExpand>
+    <FlexColumnExpand justifyContent="space-around">
       <BookImage />
       <FlexColumn>
         <label htmlFor="email">E-mail</label>

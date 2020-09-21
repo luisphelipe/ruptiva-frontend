@@ -10,6 +10,7 @@ interface ContextProps {
   login: (e: string, p: string) => Promise<AuthProps>;
   signup: (e: string, p: string) => Promise<AuthProps>;
   logout: () => void;
+  user: { id: string; email: string };
 }
 
 const auth_request = (e: string, p: string) => {
@@ -24,6 +25,7 @@ const AuthContext = createContext<ContextProps>({
   login: auth_request,
   signup: auth_request,
   logout: () => {},
+  user: { id: "", email: "" },
 });
 
 export default AuthContext;

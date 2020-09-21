@@ -1,5 +1,5 @@
 import React from "react";
-import { UnorderedList, Error } from "./style";
+import { UnorderedList, Error } from "./styles";
 
 const ErrorList = ({ errors }: { errors: string[] | false }) => {
   return errors ? (

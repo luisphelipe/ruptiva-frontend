@@ -1,0 +1,84 @@
+import styled, { css } from "styled-components";
+
+interface ContainerProps {
+  maxWidth?: string;
+  maxHeight?: string;
+  alignItems?: string;
+  justifyContent?: string;
+  flexGrow?: string;
+}
+
+const flex_column = css`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const FlexColumn = styled.div<ContainerProps>`
+  ${flex_column};
+  justify-content: ${(props) => props.justifyContent || "center"};
+  align-items: ${(props) => props.alignItems || "flex-start"};
+  flex-grow: ${(props) => props.flexGrow};
+`;
+
+export const FlexColumnExpand = styled.div<ContainerProps>`
+  ${flex_column};
+  width: 100%;
+  height: 100%;
+  max-width: ${(props) => props.maxWidth || "400px"};
+  max-height: ${(props) => props.maxHeight || "600px"};
+  justify-content: ${(props) => props.justifyContent || "flex-start"};
+  align-items: ${(props) => props.alignItems || "center"};
+`;
+
+export const FlexRow = styled.div<ContainerProps>`
+  display: flex;
+  width: 100%;
+  max-width: 90%;
+  justify-content: space-between;
+  align-items: flex-start;
+`;
+
+export const BookImage = styled.img.attrs({
+  src: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Draw_book.png",
+})`
+  border: 1px solid black;
+  width: 160px;
+  height: 160px;
+`;
+
+export const Input = styled.input`
+  width: 100%;
+  max-width: 500px;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  margin: 12px 0 22px;
+`;
+
+interface ButtonProps {
+  fontSize?: string;
+  height?: string;
+  width?: string;
+  padding?: string;
+}
+
+export const Button = styled.button<ButtonProps>`
+  font-size: ${(props) => props.fontSize};
+  height: ${(props) => props.height};
+  width: ${(props) => props.width || "170px"};
+  max-width: 100%;
+  text-align: center;
+  padding: ${(props) => props.padding || "12px"};
+  box-sizing: border-box;
+  border: 1px solid black;
+  margin-bottom: 16px;
+  background-color: inherit;
+
+  :disabled {
+    color: #555;
+  }
+`;
+
+export const Text = styled.p<{ fontSize?: string }>`
+  font-size: ${(props) => props.fontSize};
+`;
