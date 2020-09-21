@@ -77,7 +77,10 @@ const AuthService = ({ children }: { children: any }) => {
   };
 
   useEffect(() => {
-    if (!token || books.length > 0) return;
+    if (!token) {
+      setBooks([]);
+      return;
+    }
 
     (async () => {
       try {

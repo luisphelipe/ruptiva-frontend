@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 
 import {
   FlexColumnExpand,
@@ -11,10 +11,35 @@ import { LinkButton } from "../styles";
 import AuthContext from "../../../contexts/auth.context";
 import BooksContext from "../../../contexts/books.context";
 import BookDisplay from "./BookDisplay";
+import BookDetailsModal from "./BookDetailsModal";
+
+interface BookType {
+  id: number;
+  title: string;
+  review: string | null;
+  rating: number;
+  image_url: string | null;
+}
 
 const BookList = () => {
   const { user, logout } = useContext(AuthContext);
-  const { books } = useContext(BooksContext);
+  const { books, deleteBook } = useContext(BooksContext);
+
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [book, setBook] = useState<BookType | {}>({});
+
+  const showBookDetails = (id: number) => {
+    // eslint-disable-next-line
+    setBook(books.find((book) => book.id == id));
+    setIsOpen(true);
+  };
+
+  const _deleteBook = () => {
+    let valid_book = book as BookType;
+    if (!valid_book.id) return;
+    deleteBook(valid_book.id);
+    setIsOpen(false);
+  };
 
   return (
     <FlexColumnExpand justifyContent="flex-start">
@@ -45,10 +70,24 @@ const BookList = () => {
         gap="20px"
       >
         {books.map((book) => (
-          <BookDisplay book={book} />
+          <div
+            key={book.id}
+            style={{ width: "100%" }}
+            onClick={() => {
+              showBookDetails(book.id);
+            }}
+          >
+            <BookDisplay book={book} />
+          </div>
         ))}
       </FlexColumn>
       <FlexColumn>pagination</FlexColumn>
+      <BookDetailsModal
+        isOpen={modalIsOpen}
+        closeModal={() => setIsOpen(false)}
+        book={book}
+        deleteBook={_deleteBook}
+      />
     </FlexColumnExpand>
   );
 };

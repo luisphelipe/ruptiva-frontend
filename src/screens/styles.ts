@@ -10,6 +10,7 @@ export interface ContainerProps {
   margin?: string;
   alignSelf?: string;
   width?: string;
+  height?: string;
   gap?: string;
 }
 
@@ -25,6 +26,7 @@ export const FlexColumn = styled.div<ContainerProps>`
   flex-grow: ${(props) => props.flexGrow};
   align-self: ${(props) => props.alignSelf};
   width: ${(props) => props.width};
+  height: ${(props) => props.height};
   margin: ${(props) => props.margin};
   gap: ${(props) => props.gap};
 `;

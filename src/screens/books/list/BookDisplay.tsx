@@ -6,11 +6,22 @@ import { BookImage, Text, Button, FlexColumn } from "../../styles";
 import { LinkButton } from "../styles";
 import RatingDisplay from "./RatingDisplay";
 
-const FlexRow = styled.div`
+interface FlexRowProps {
+  flexGrow?: string;
+  maxHeight?: string;
+  alignItems?: string;
+}
+
+export const FlexRow = styled.div<FlexRowProps>`
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: ${(props) => props.alignItems || "center"};
+  flex-grow: ${(props) => props.flexGrow};
+
+  max-height: ${(props) => props.maxHeight};
+  margin: auto 0;
+  overflow: scroll;
   /* margin: 0 0 24px; */
 `;
 
@@ -20,12 +31,19 @@ const small_button = css`
   padding: 0;
   margin: 0 0 6px;
 `;
-const SmallButton = styled(Button)`
-  ${small_button}
+
+interface ButtonProps {
+  margin?: string;
+}
+
+export const SmallButton = styled(Button)<ButtonProps>`
+  ${small_button};
+  margin: ${(props) => props.margin};
 `;
 
-const SmallLinkButton = styled(LinkButton)`
-  ${small_button}
+export const SmallLinkButton = styled(LinkButton)<ButtonProps>`
+  ${small_button};
+  margin: ${(props) => props.margin};
 `;
 
 const BookDisplay = ({ book }: any) => {
@@ -41,12 +59,12 @@ const BookDisplay = ({ book }: any) => {
       >
         <Text>{book.title}</Text>
         <RatingDisplay rating={book.rating} />
-        {/* <Text>{book.rating}</Text> */}
       </FlexColumn>
       <FlexColumn alignSelf="flex-start">
         <SmallLinkButton to={`/${book.id}/edit`}>EDIT</SmallLinkButton>
         <SmallButton
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             const confirm_delete = window.confirm(`Are you sure?`);
             if (confirm_delete) deleteBook(book.id);
           }}

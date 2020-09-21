@@ -76,7 +76,7 @@ const BookNew = () => {
 
               <FieldWrapper>
                 <label htmlFor="review">Review</label>
-                <Field id="review" name="review" as="textarea" />
+                <Field id="review" name="review" component="textarea" />
                 <ErrorFor _key="review" {...{ errors, touched }} />
               </FieldWrapper>
 

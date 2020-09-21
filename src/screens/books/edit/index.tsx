@@ -20,7 +20,7 @@ const BookSchema = Yup.object().shape({
   title: Yup.string().required("Required"),
   review: Yup.string().nullable(),
   image_url: Yup.string().nullable(),
-  rating: Yup.number().nullable(),
+  rating: Yup.number(),
 });
 
 const ErrorFor = ({ errors, touched, _key }: any) => {
@@ -52,8 +52,11 @@ const BookEdit = () => {
 
     // Remove empty values
     Object.keys(values).forEach((key) => {
-      if (values[key]) trimmed_values[key] = values[key];
+      if (values[key] || key === "rating") trimmed_values[key] = values[key];
     });
+
+    console.log("Updating values", values);
+    console.log("Updating trimmed_values", trimmed_values);
 
     return await updateBook(id, trimmed_values);
   };
@@ -63,12 +66,13 @@ const BookEdit = () => {
       initialValues={book}
       validationSchema={BookSchema}
       onSubmit={async (values, { setSubmitting }) => {
+        console.log("VALUES", values);
         const res = await submitForm(values);
         setSubmitting(false);
         if (res.errors) setApiErrors(res.errors);
         else setSuccess(true);
       }}
-      enableReinitialize={true}
+      enableReinitialize
     >
       {({ errors, touched, isSubmitting }) => (
         <FlexColumnExpand padding="24px">
@@ -85,7 +89,7 @@ const BookEdit = () => {
 
               <FieldWrapper>
                 <label htmlFor="review">Review</label>
-                <Field id="review" name="review" as="textarea" />
+                <Field id="review" name="review" component="textarea" />
                 <ErrorFor _key="review" {...{ errors, touched }} />
               </FieldWrapper>
 
