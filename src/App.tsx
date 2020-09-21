@@ -1,13 +1,17 @@
 import React from "react";
+
+import AuthService from "./services/auth.service";
 import Routing from "./routes";
 
 import { FlexContainerCenter } from "./components/containers";
 
 function App() {
   return (
-    <FlexContainerCenter>
-      <Routing />
-    </FlexContainerCenter>
+    <AuthService>
+      <FlexContainerCenter>
+        <Routing />
+      </FlexContainerCenter>
+    </AuthService>
   );
 }
 

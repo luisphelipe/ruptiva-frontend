@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import AuthContext from "../../../contexts/auth.context";
+
+import ErrorList from "../ErrorList";
 import {
   FlexColumnExpand,
   BookImage,
@@ -9,17 +12,47 @@ import {
 } from "../style";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState<false | string[]>(false);
+  const [loading, setLoading] = useState(false);
+
+  const { login } = useContext(AuthContext);
+
+  const submitlogin = async () => {
+    setLoading(true);
+
+    const res = await login(email, password);
+
+    setErrors(res.errors);
+    setLoading(false);
+  };
+
   return (
     <FlexColumnExpand>
       <BookImage />
       <FlexColumn>
         <label htmlFor="email">E-mail</label>
-        <Input id="email" name="email" type="email" required />
+        <Input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
         <label htmlFor="password">Password</label>
-        <Input id="password" name="password" type="password" required />
+        <Input
+          id="password"
+          type="password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <ErrorList errors={errors} />
       </FlexColumn>
       <FlexColumn alignItems="center">
-        <Button onClick={() => console.log("TODO: submit login")}>LOGIN</Button>
+        <Button onClick={submitlogin} disabled={loading}>
+          {loading ? "LOADING..." : "LOGIN"}
+        </Button>
         <Link to="/signup">...OR SIGNUP</Link>
       </FlexColumn>
     </FlexColumnExpand>

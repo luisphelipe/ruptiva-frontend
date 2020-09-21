@@ -51,6 +51,10 @@ export const Button = styled.button`
   border: 1px solid black;
   margin-bottom: 16px;
   background-color: inherit;
+
+  :disabled {
+    color: #555;
+  }
 `;
 
 export const Link = styled(DefaultLink)`
@@ -60,4 +64,15 @@ export const Link = styled(DefaultLink)`
   background-color: inherit;
   text-decoration: none;
   border-bottom: 1px solid black;
+`;
+
+export const UnorderedList = styled.ul`
+  list-style: none;
+  width: 100%;
+`;
+
+export const Error = styled.li`
+  font-size: 16px;
+  text-align: center;
+  color: red;
 `;
