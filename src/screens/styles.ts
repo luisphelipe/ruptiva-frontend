@@ -49,12 +49,15 @@ export const FlexRow = styled.div<ContainerProps>`
   margin: ${(props) => props.margin};
 `;
 
-export const BookImage = styled.img.attrs({
-  src: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Draw_book.png",
-})<{ width?: string }>`
+export const BookImage = styled.img.attrs((props) => ({
+  src:
+    props.src ||
+    "https://upload.wikimedia.org/wikipedia/commons/b/bd/Draw_book.png",
+}))<{ width?: string }>`
   border: 1px solid black;
   width: ${(props) => props.width || "160px"};
   height: ${(props) => props.width || "160px"};
+  object-fit: cover;
 `;
 
 export const input_css = css`

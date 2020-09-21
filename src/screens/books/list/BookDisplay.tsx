@@ -33,7 +33,7 @@ const BookDisplay = ({ book }: any) => {
 
   return (
     <FlexRow>
-      <BookImage width="60px" />
+      <BookImage width="60px" src={book.image_url} />
       <FlexColumn
         margin="0 0 0 12px"
         flexGrow="1"
