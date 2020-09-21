@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../contexts/auth.context";
 import BooksContext from "../contexts/books.context";
 
-import { createBook, deleteBook, getBooks } from "../api/book.api";
+import { createBook, updateBook, deleteBook, getBooks } from "../api/book.api";
 
 const AuthService = ({ children }: { children: any }) => {
   const { token } = useContext(AuthContext);
@@ -25,6 +25,34 @@ const AuthService = ({ children }: { children: any }) => {
     }
 
     return { errors: false };
+  };
+
+  const _updateBook = async (id: any, values: any) => {
+    try {
+      const res = await updateBook(id, values, token);
+      const new_book = res.data.book;
+
+      setBooks((oldBooks) => {
+        const book_list = oldBooks.filter((book) => book.id !== new_book.id);
+        return [new_book, ...book_list];
+      });
+    } catch (err) {
+      if (err.response.status === 406)
+        return {
+          errors: err.response.data.error.details.map(
+            (error: any) => error.message
+          ),
+        };
+
+      return { errors: [err.response.data.message] };
+    }
+
+    return { errors: false };
+  };
+
+  const _getBook = (id: any) => {
+    // eslint-disable-next-line
+    return books.find((book) => book.id == id);
   };
 
   const _deleteBook = async (id: any) => {
@@ -70,7 +98,13 @@ const AuthService = ({ children }: { children: any }) => {
 
   return (
     <BooksContext.Provider
-      value={{ books, createBook: _createBook, deleteBook: _deleteBook }}
+      value={{
+        books,
+        getBook: _getBook,
+        createBook: _createBook,
+        updateBook: _updateBook,
+        deleteBook: _deleteBook,
+      }}
     >
       {children}
     </BooksContext.Provider>
