@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, FlexRow } from "../styles";
 
-const Star = ({ checked, onClick }: any) => {
+export const Star = ({ checked, onClick }: any) => {
   return (
     <Text onClick={onClick} margin="0 12px 0 0" fontSize="24px">
       {checked ? "★" : "☆"}

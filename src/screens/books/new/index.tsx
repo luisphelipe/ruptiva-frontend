@@ -4,7 +4,7 @@ import * as Yup from "yup";
 
 import BooksContext from "../../../contexts/books.context";
 
-import RatingInputField from "../RatinInputField";
+import RatingInputField from "../RatingInputField";
 
 import ErrorList from "../../../components/ErrorList";
 import {

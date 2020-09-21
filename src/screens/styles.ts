@@ -8,6 +8,9 @@ export interface ContainerProps {
   flexGrow?: string;
   padding?: string;
   margin?: string;
+  alignSelf?: string;
+  width?: string;
+  gap?: string;
 }
 
 export const flex_column = css`
@@ -20,6 +23,10 @@ export const FlexColumn = styled.div<ContainerProps>`
   justify-content: ${(props) => props.justifyContent || "center"};
   align-items: ${(props) => props.alignItems || "flex-start"};
   flex-grow: ${(props) => props.flexGrow};
+  align-self: ${(props) => props.alignSelf};
+  width: ${(props) => props.width};
+  margin: ${(props) => props.margin};
+  gap: ${(props) => props.gap};
 `;
 
 export const FlexColumnExpand = styled.div<ContainerProps>`
@@ -44,10 +51,10 @@ export const FlexRow = styled.div<ContainerProps>`
 
 export const BookImage = styled.img.attrs({
   src: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Draw_book.png",
-})`
+})<{ width?: string }>`
   border: 1px solid black;
-  width: 160px;
-  height: 160px;
+  width: ${(props) => props.width || "160px"};
+  height: ${(props) => props.width || "160px"};
 `;
 
 export const input_css = css`

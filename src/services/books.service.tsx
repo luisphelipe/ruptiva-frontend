@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../contexts/auth.context";
 import BooksContext from "../contexts/books.context";
 
-import { createBook } from "../api/book.api";
+import { createBook, deleteBook, getBooks } from "../api/book.api";
 
 const AuthService = ({ children }: { children: any }) => {
   const { token } = useContext(AuthContext);
@@ -27,13 +27,51 @@ const AuthService = ({ children }: { children: any }) => {
     return { errors: false };
   };
 
+  const _deleteBook = async (id: any) => {
+    try {
+      const res = await deleteBook(id, token);
+      console.log("response from delete book", res.data);
+      setBooks((oldBooks) => {
+        return oldBooks.filter((book) => book.id !== id);
+      });
+    } catch (err) {
+      if (err.response.status === 406)
+        return {
+          errors: err.response.data.error.details.map(
+            (error: any) => error.message
+          ),
+        };
+
+      return { errors: [err.response.data.message] };
+    }
+
+    return { errors: false };
+  };
+
+  useEffect(() => {
+    if (!token || books.length > 0) return;
+
+    (async () => {
+      try {
+        const res = await getBooks(token);
+        setBooks(res.data);
+      } catch (err) {
+        console.log("Failed to get books");
+        console.log(err.response);
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
   useEffect(() => {
     console.log("book list updated");
     console.log(books);
   }, [books]);
 
   return (
-    <BooksContext.Provider value={{ books, createBook: _createBook }}>
+    <BooksContext.Provider
+      value={{ books, createBook: _createBook, deleteBook: _deleteBook }}
+    >
       {children}
     </BooksContext.Provider>
   );

@@ -9,14 +9,18 @@ import {
 } from "../../styles";
 import { LinkButton } from "../styles";
 import AuthContext from "../../../contexts/auth.context";
+import BooksContext from "../../../contexts/books.context";
+import BookDisplay from "./BookDisplay";
 
 const BookList = () => {
   const { user, logout } = useContext(AuthContext);
+  const { books } = useContext(BooksContext);
 
   return (
     <FlexColumnExpand justifyContent="flex-start">
       <FlexRow>
         <Text fontSize="12px">Logged in as {user.email}</Text>
+
         <Button
           fontSize="12px"
           height="18px"
@@ -33,7 +37,17 @@ const BookList = () => {
           CREATE
         </LinkButton>
       </FlexRow>
-      <FlexColumn flexGrow="1">list of books</FlexColumn>
+
+      <FlexColumn
+        flexGrow="1"
+        width="90%"
+        justifyContent="flex-start"
+        gap="20px"
+      >
+        {books.map((book) => (
+          <BookDisplay book={book} />
+        ))}
+      </FlexColumn>
       <FlexColumn>pagination</FlexColumn>
     </FlexColumnExpand>
   );
