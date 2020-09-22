@@ -52,9 +52,7 @@ export const FlexRow = styled.div<ContainerProps>`
 `;
 
 export const BookImage = styled.img.attrs((props) => ({
-  src:
-    props.src ||
-    "https://upload.wikimedia.org/wikipedia/commons/b/bd/Draw_book.png",
+  src: props.src || "http://www.sicpdistilled.com/images/sicp2-07ad7dbe.jpg",
 }))<{ width?: string; maxHeight?: string; height?: string }>`
   border: 1px solid black;
   width: ${(props) => props.height || props.width || "auto"};

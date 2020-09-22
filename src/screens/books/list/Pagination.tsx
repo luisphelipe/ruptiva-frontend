@@ -63,7 +63,7 @@ const Pagination = ({ url, page = 1, limit = 6, count = 1 }: any) => {
         typeof link == "string" ? (
           <FakeLink key={index}>{link}</FakeLink>
         ) : (
-          <Link key={link.number} to={link.url} disabled={link.page == page}>
+          <Link key={link.number} to={link.url} disabled={link.page === page}>
             {link.number}
           </Link>
         )
