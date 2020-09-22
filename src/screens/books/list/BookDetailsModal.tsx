@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { BookImage, Text, FlexColumn } from "../../styles";
 import { FlexRow, SmallLinkButton, SmallButton } from "./BookDisplay";
 import RatingDisplay from "./RatingDisplay";
+import styled, { css } from "styled-components";
 
 const customStyles = {
   overlay: {
@@ -17,13 +18,28 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     maxWidth: "90%",
-    width: "100%",
+    width: "min(100%, 500px)",
     height: "100%",
     maxHeight: "min(500px, 50%)",
     border: "1px solid black",
     borderRadius: 0,
   },
 };
+
+const button_css = css`
+  @media (min-width: 715px) {
+    font-size: 16px;
+    padding: 2px 20px;
+    width: auto;
+  }
+`;
+const Button = styled(SmallButton)`
+  ${button_css};
+`;
+
+const LinkButton = styled(SmallLinkButton)`
+  ${button_css};
+`;
 
 Modal.setAppElement("#root");
 
@@ -51,15 +67,15 @@ const BookDetailsModal = ({ isOpen, closeModal, book, deleteBook }: any) => {
           flexGrow="1"
           maxHeight="50%"
           alignItems="flex-start"
-          overflow="scroll"
+          overflow="auto"
         >
           {book.review || "There is no review for this title."}
         </FlexRow>
         <FlexRow margin="auto 0 0">
-          <SmallLinkButton to={`/${book.id}/edit`} margin="0 12px 0 0">
+          <LinkButton to={`/${book.id}/edit`} margin="0 12px 0 0">
             EDIT
-          </SmallLinkButton>
-          <SmallButton
+          </LinkButton>
+          <Button
             margin="0"
             onClick={() => {
               const confirm_delete = window.confirm(`Are you sure?`);
@@ -67,10 +83,10 @@ const BookDetailsModal = ({ isOpen, closeModal, book, deleteBook }: any) => {
             }}
           >
             DELETE
-          </SmallButton>
-          <SmallButton onClick={closeModal} margin="0 0 0 auto">
+          </Button>
+          <Button onClick={closeModal} margin="0 0 0 auto">
             CLOSE
-          </SmallButton>
+          </Button>
         </FlexRow>
       </FlexColumn>
     </Modal>

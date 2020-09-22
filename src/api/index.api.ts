@@ -15,3 +15,5 @@ export const put = (endpoint: string, data: any, config?: any) =>
 
 export const destroy = (endpoint: string, config?: any) =>
   axios.delete(`${API_URL}${endpoint}`, config);
+
+export const wake_the_heroku_server = () => get("/");

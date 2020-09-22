@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../../../contexts/auth.context";
+import { wake_the_heroku_server } from "../../../api/index.api";
 
 import ErrorList from "../../../components/ErrorList";
 import {
@@ -27,6 +28,10 @@ const Login = () => {
     setErrors(res.errors);
     setLoading(false);
   };
+
+  useEffect(() => {
+    wake_the_heroku_server();
+  }, []);
 
   return (
     <FlexColumnExpand justifyContent="space-around" maxHeight="600px">

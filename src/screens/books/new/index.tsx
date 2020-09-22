@@ -16,7 +16,6 @@ import {
 } from "../../styles";
 import { Form, Field, Error, Link, FieldWrapper } from "../styles";
 import { Redirect } from "react-router-dom";
-import styled from "styled-components";
 
 const BookSchema = Yup.object().shape({
   title: Yup.string().required("Required"),
