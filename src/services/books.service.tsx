@@ -18,11 +18,14 @@ const AuthService = ({ children }: { children: any }) => {
 
   const { token } = useContext(AuthContext);
 
+  const buildPagination = (pg: number) => `?page=${pg}&limit=6`;
+
   const _createBook = async (values: any) => {
     try {
       const res = await createBook(values, token);
       const new_book = res.data.book;
       setBooks((oldBooks) => [new_book, ...oldBooks]);
+      await _fetchBookPage(buildPagination(page));
     } catch (err) {
       if (err.response.status === 406)
         return {
@@ -68,6 +71,7 @@ const AuthService = ({ children }: { children: any }) => {
         const book_list = oldBooks.filter((book) => book.id !== new_book.id);
         return [new_book, ...book_list];
       });
+      await _fetchBookPage(buildPagination(page));
     } catch (err) {
       if (err.response.status === 406)
         return {
@@ -94,6 +98,7 @@ const AuthService = ({ children }: { children: any }) => {
       setBooks((oldBooks) => {
         return oldBooks.filter((book) => book.id !== id);
       });
+      await _fetchBookPage(buildPagination(page));
     } catch (err) {
       if (err.response.status === 406)
         return {
