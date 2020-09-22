@@ -34,6 +34,7 @@ export const Form = styled(DefaultForm)<ContainerProps>`
   justify-content: ${(props) => props.justifyContent || "center"};
   align-items: ${(props) => props.alignItems || "flex-start"};
   height: 100%;
+  max-height: 700px;
 `;
 
 export const Field = styled(DefaultField)`
@@ -44,6 +45,7 @@ export const Field = styled(DefaultField)`
 
 export const FieldWrapper = styled.div`
   margin-bottom: 22px;
+  width: 100%;
 `;
 
 export const Error = styled.div`

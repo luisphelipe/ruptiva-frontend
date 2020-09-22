@@ -75,7 +75,7 @@ const BookEdit = () => {
       enableReinitialize
     >
       {({ errors, touched, isSubmitting }) => (
-        <FlexColumnExpand padding="24px">
+        <FlexColumnExpand padding="24px" justifyContent="center">
           {success && <Redirect to="/" />}
           <Form>
             <Text>EDIT BOOK #{id}</Text>

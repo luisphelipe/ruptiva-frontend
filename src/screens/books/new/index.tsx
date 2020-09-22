@@ -16,6 +16,7 @@ import {
 } from "../../styles";
 import { Form, Field, Error, Link, FieldWrapper } from "../styles";
 import { Redirect } from "react-router-dom";
+import styled from "styled-components";
 
 const BookSchema = Yup.object().shape({
   title: Yup.string().required("Required"),
@@ -62,7 +63,7 @@ const BookNew = () => {
       }}
     >
       {({ errors, touched, isSubmitting }) => (
-        <FlexColumnExpand padding="24px">
+        <FlexColumnExpand padding="24px" justifyContent="center">
           {success && <Redirect to="/" />}
           <Form>
             <Text>CREATE NEW BOOK</Text>
