@@ -1,4 +1,4 @@
-# Code Challenge - Fullstack (frontend)
+# Ruptiva Fullstack Code Challenge (Frontend) - Luis Phelipe
 
 ## [Live on Netlify](https://ruptiva-luisphelipe.netlify.app/)
 
