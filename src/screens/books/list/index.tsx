@@ -127,7 +127,7 @@ const BookList = () => {
           </DivWrapper>
         ))}
       </BookColumn>
-      <FlexColumn margin="12px 0 0">
+      <FlexColumn margin="12px 0 0" width="100%" alignItems="center">
         <Pagination url="/" page={page} count={count} />
       </FlexColumn>
       <BookDetailsModal

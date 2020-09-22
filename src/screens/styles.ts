@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 
 export interface ContainerProps {
+  minWidth?: string;
   maxWidth?: string;
   maxHeight?: string;
   alignItems?: string;
@@ -26,6 +27,7 @@ export const FlexColumn = styled.div<ContainerProps>`
   flex-grow: ${(props) => props.flexGrow};
   align-self: ${(props) => props.alignSelf};
   width: ${(props) => props.width};
+  min-width: ${(props) => props.minWidth};
   height: ${(props) => props.height};
   margin: ${(props) => props.margin};
   gap: ${(props) => props.gap};

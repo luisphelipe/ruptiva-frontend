@@ -59,6 +59,7 @@ const button_css = css`
   text-align: center;
   margin: 0;
   width: 47%;
+  cursor: pointer;
 `;
 
 const DeleteButton = styled(SmallButton)`
@@ -72,7 +73,7 @@ const BookDisplay = ({ book }: any) => {
   const { deleteBook } = useContext(BooksContext);
 
   return (
-    <FlexRow>
+    <FlexRow style={{ cursor: "pointer" }}>
       <BookImage height="60px" src={book.image_url} />
       <FlexColumn
         margin="0 0 0 12px"
@@ -113,7 +114,7 @@ const BigBookDisplay = ({ book }: any) => {
   const { deleteBook } = useContext(BooksContext);
 
   return (
-    <FlexRow>
+    <FlexRow style={{ cursor: "pointer" }}>
       <BookImage height="min(160px, 15vw)" src={book.image_url} />
 
       <FlexColumn

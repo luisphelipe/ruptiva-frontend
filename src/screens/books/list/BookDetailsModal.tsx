@@ -27,6 +27,8 @@ const customStyles = {
 };
 
 const button_css = css`
+  cursor: pointer;
+
   @media (min-width: 715px) {
     font-size: 16px;
     padding: 2px 20px;

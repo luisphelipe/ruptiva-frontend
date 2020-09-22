@@ -3,7 +3,12 @@ import { Text, FlexRow } from "../styles";
 
 export const Star = ({ checked, onClick }: any) => {
   return (
-    <Text onClick={onClick} margin="0 12px 0 0" fontSize="24px">
+    <Text
+      onClick={onClick}
+      margin="0 12px 0 0"
+      fontSize="24px"
+      style={{ cursor: "pointer" }}
+    >
       {checked ? "★" : "☆"}
     </Text>
   );
