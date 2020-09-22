@@ -1,14 +1,14 @@
-import { createContext } from "react";
+import { createContext } from 'react'
 
 interface ContextProps {
-  books: any[];
-  page: number;
-  count: number;
-  getBook: (values: any) => any;
-  fetchBookPage: (values: any) => any;
-  createBook: (values: any) => any;
-  updateBook: (id: any, values: any) => any;
-  deleteBook: (id: any) => any;
+  books: any[]
+  page: number
+  count: number
+  getBook: (values: any) => any
+  fetchBookPage: (values: any) => any
+  createBook: (values: any) => any
+  updateBook: (id: any, values: any) => any
+  deleteBook: (id: any) => any
 }
 
 const BooksContext = createContext<ContextProps>({
@@ -19,7 +19,7 @@ const BooksContext = createContext<ContextProps>({
   fetchBookPage: (id) => ({}),
   createBook: (values) => ({}),
   updateBook: (id, values) => ({}),
-  deleteBook: (id) => ({}),
-});
+  deleteBook: (id) => ({})
+})
 
-export default BooksContext;
+export default BooksContext

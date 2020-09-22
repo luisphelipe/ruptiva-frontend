@@ -1,62 +1,62 @@
-import React, { useState, useContext } from "react";
-import AuthContext from "../../../contexts/auth.context";
+import React, { useState, useContext } from 'react'
+import AuthContext from '../../../contexts/auth.context'
 
-import ErrorList from "../../../components/ErrorList";
+import ErrorList from '../../../components/ErrorList'
 import {
   FlexColumnExpand,
   FlexColumn,
   BookImage,
   Input,
-  Button,
-} from "../../styles";
-import { Link } from "../styles";
+  Button
+} from '../../styles'
+import { Link } from '../styles'
 
 const Signup = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState<false | string[]>(false);
-  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [errors, setErrors] = useState<false | string[]>(false)
+  const [loading, setLoading] = useState(false)
 
-  const { signup } = useContext(AuthContext);
+  const { signup } = useContext(AuthContext)
 
   const submitSignup = async () => {
-    setLoading(true);
+    setLoading(true)
 
-    const res = await signup(email, password);
+    const res = await signup(email, password)
 
-    setErrors(res.errors);
-    setLoading(false);
-  };
+    setErrors(res.errors)
+    setLoading(false)
+  }
 
   return (
-    <FlexColumnExpand justifyContent="space-around" maxHeight="600px">
+    <FlexColumnExpand justifyContent='space-around' maxHeight='600px'>
       <BookImage />
       <FlexColumn>
-        <label htmlFor="email">E-mail</label>
+        <label htmlFor='email'>E-mail</label>
         <Input
-          id="email"
-          type="email"
+          id='email'
+          type='email'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <label htmlFor="password">Password</label>
+        <label htmlFor='password'>Password</label>
         <Input
-          id="password"
-          type="password"
+          id='password'
+          type='password'
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <ErrorList errors={errors} />
       </FlexColumn>
-      <FlexColumn alignItems="center">
+      <FlexColumn alignItems='center'>
         <Button onClick={submitSignup} disabled={loading}>
-          {loading ? "LOADING..." : "SIGNUP"}
+          {loading ? 'LOADING...' : 'SIGNUP'}
         </Button>
-        <Link to="/login">...OR LOGIN</Link>
+        <Link to='/login'>...OR LOGIN</Link>
       </FlexColumn>
     </FlexColumnExpand>
-  );
-};
+  )
+}
 
-export default Signup;
+export default Signup

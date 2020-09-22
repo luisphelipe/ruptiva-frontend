@@ -1,33 +1,33 @@
-import { get, post, put, destroy } from "./index.api";
+import { get, post, put, destroy } from './index.api'
 
 export const getBooks = async (token: string) => {
-  return await get("/books", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-};
+  return await get('/books', {
+    headers: { Authorization: `Bearer ${token}` }
+  })
+}
 
 export const fetchBookPage = async (pagination: string, token: string) => {
   return await get(`/books${pagination}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-};
+    headers: { Authorization: `Bearer ${token}` }
+  })
+}
 
 export const createBook = async (values: any, token: string) => {
-  return await post("/books", values, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-};
+  return await post('/books', values, {
+    headers: { Authorization: `Bearer ${token}` }
+  })
+}
 
 export const updateBook = async (id: string, values: any, token: string) => {
   return await put(`/books/${id}`, values, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-};
+    headers: { Authorization: `Bearer ${token}` }
+  })
+}
 
 export const deleteBook = async (id: string, token: string) => {
   return await destroy(`/books/${id}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-};
+    headers: { Authorization: `Bearer ${token}` }
+  })
+}
 
-export default { createBook, deleteBook };
+export default { createBook, deleteBook }
