@@ -29,7 +29,7 @@ const Signup = () => {
   };
 
   return (
-    <FlexColumnExpand justifyContent="space-around">
+    <FlexColumnExpand justifyContent="space-around" maxHeight="600px">
       <BookImage />
       <FlexColumn>
         <label htmlFor="email">E-mail</label>

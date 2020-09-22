@@ -36,8 +36,8 @@ const BookDetailsModal = ({ isOpen, closeModal, book, deleteBook }: any) => {
       contentLabel="Book Details"
     >
       <FlexColumn height="100%">
-        <FlexRow>
-          <BookImage width="60px" src={book.image_url} />
+        <FlexRow margin="0">
+          <BookImage height="60px" src={book.image_url} />
           <FlexColumn
             margin="0 0 0 12px"
             flexGrow="1"
@@ -47,14 +47,20 @@ const BookDetailsModal = ({ isOpen, closeModal, book, deleteBook }: any) => {
             <RatingDisplay rating={book.rating} />
           </FlexColumn>
         </FlexRow>
-        <FlexRow flexGrow="1" maxHeight="50%" alignItems="flex-start">
+        <FlexRow
+          flexGrow="1"
+          maxHeight="50%"
+          alignItems="flex-start"
+          overflow="scroll"
+        >
           {book.review || "There is no review for this title."}
         </FlexRow>
-        <FlexRow>
-          <SmallLinkButton to={`/${book.id}/edit`} margin="0 12px 6px 0">
+        <FlexRow margin="auto 0 0">
+          <SmallLinkButton to={`/${book.id}/edit`} margin="0 12px 0 0">
             EDIT
           </SmallLinkButton>
           <SmallButton
+            margin="0"
             onClick={() => {
               const confirm_delete = window.confirm(`Are you sure?`);
               if (confirm_delete) deleteBook();

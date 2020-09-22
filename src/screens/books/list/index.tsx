@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
-
+import React, { useState, useContext, useEffect } from "react";
+import styled from "styled-components";
 import {
-  FlexColumnExpand,
+  FlexColumnExpand as FCE,
   FlexColumn,
   FlexRow,
   Button,
@@ -12,6 +12,7 @@ import AuthContext from "../../../contexts/auth.context";
 import BooksContext from "../../../contexts/books.context";
 import BookDisplay from "./BookDisplay";
 import BookDetailsModal from "./BookDetailsModal";
+import useWindowSize from "../../../hooks/useWindowSize";
 
 interface BookType {
   id: number;
@@ -21,9 +22,48 @@ interface BookType {
   image_url: string | null;
 }
 
+const FlexColumnExpand = styled(FCE)`
+  justify-content: "flex-start";
+  padding: clamp(1rem, 4vh, 2rem) 0;
+`;
+
+const BookColumn = styled(FlexColumn)`
+  flex-grow: 1;
+  width: 90%;
+  justify-content: space-between;
+  align-content: stretch;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  @media (min-width: 714px) {
+    gap: 5%;
+  }
+`;
+
+const DivWrapper = styled.div`
+  min-width: 300px;
+  max-width: 600px;
+  width: min(calc(50% - max(2.5%, 0.5vw), 600px));
+
+  @media (max-width: 714px) {
+    width: 100%;
+    max-width: 100%;
+    /* max-width: 600px; */
+  }
+`;
+
+const EmailLogout = styled(FlexRow)`
+  @media (min-width: 714px) {
+    justify-content: flex-end;
+    gap: 10px;
+  }
+`;
+
 const BookList = () => {
   const { user, logout } = useContext(AuthContext);
   const { books, deleteBook } = useContext(BooksContext);
+  const { width } = useWindowSize();
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [book, setBook] = useState<BookType | {}>({});
@@ -42,8 +82,8 @@ const BookList = () => {
   };
 
   return (
-    <FlexColumnExpand justifyContent="flex-start">
-      <FlexRow>
+    <FlexColumnExpand>
+      <EmailLogout>
         <Text fontSize="12px">Logged in as {user.email}</Text>
 
         <Button
@@ -55,7 +95,7 @@ const BookList = () => {
         >
           logout
         </Button>
-      </FlexRow>
+      </EmailLogout>
       <FlexRow>
         <Text>YOUR BOOK LIST</Text>
         <LinkButton to="/new" width="100px">
@@ -63,25 +103,19 @@ const BookList = () => {
         </LinkButton>
       </FlexRow>
 
-      <FlexColumn
-        flexGrow="1"
-        width="90%"
-        justifyContent="flex-start"
-        gap="20px"
-      >
+      <BookColumn>
         {books.map((book) => (
-          <div
+          <DivWrapper
             key={book.id}
-            style={{ width: "100%" }}
             onClick={() => {
               showBookDetails(book.id);
             }}
           >
-            <BookDisplay book={book} />
-          </div>
+            <BookDisplay book={book} mobile={(width || 0) < 714} />
+          </DivWrapper>
         ))}
-      </FlexColumn>
-      <FlexColumn>pagination</FlexColumn>
+      </BookColumn>
+      <FlexColumn margin="12px 0 0">pagination</FlexColumn>
       <BookDetailsModal
         isOpen={modalIsOpen}
         closeModal={() => setIsOpen(false)}

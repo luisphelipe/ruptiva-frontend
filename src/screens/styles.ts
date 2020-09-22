@@ -35,8 +35,8 @@ export const FlexColumnExpand = styled.div<ContainerProps>`
   ${flex_column};
   width: 100%;
   height: 100%;
-  max-width: ${(props) => props.maxWidth || "400px"};
-  max-height: ${(props) => props.maxHeight || "600px"};
+  max-width: ${(props) => props.maxWidth || "min(1300px, 100%)"};
+  max-height: ${(props) => props.maxHeight || "min(1300px, 100%)"};
   justify-content: ${(props) => props.justifyContent || "flex-start"};
   align-items: ${(props) => props.alignItems || "center"};
   padding: ${(props) => props.padding || 0};
@@ -55,10 +55,12 @@ export const BookImage = styled.img.attrs((props) => ({
   src:
     props.src ||
     "https://upload.wikimedia.org/wikipedia/commons/b/bd/Draw_book.png",
-}))<{ width?: string }>`
+}))<{ width?: string; maxHeight?: string; height?: string }>`
   border: 1px solid black;
-  width: ${(props) => props.width || "160px"};
-  height: ${(props) => props.width || "160px"};
+  width: ${(props) => props.height || props.width || "auto"};
+  max-width: ${(props) => props.height || props.maxHeight || props.width};
+  max-height: ${(props) => props.maxHeight};
+  height: ${(props) => props.height || "160px"};
   object-fit: cover;
 `;
 
