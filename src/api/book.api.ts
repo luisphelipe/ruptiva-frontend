@@ -6,6 +6,12 @@ export const getBooks = async (token: string) => {
   });
 };
 
+export const fetchBookPage = async (pagination: string, token: string) => {
+  return await get(`/books${pagination}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
+
 export const createBook = async (values: any, token: string) => {
   return await post("/books", values, {
     headers: { Authorization: `Bearer ${token}` },

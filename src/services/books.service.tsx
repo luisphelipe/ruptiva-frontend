@@ -1,18 +1,50 @@
 import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../contexts/auth.context";
 import BooksContext from "../contexts/books.context";
+import queryString from "query-string";
 
-import { createBook, updateBook, deleteBook, getBooks } from "../api/book.api";
+import {
+  createBook,
+  updateBook,
+  deleteBook,
+  getBooks,
+  fetchBookPage,
+} from "../api/book.api";
 
 const AuthService = ({ children }: { children: any }) => {
-  const { token } = useContext(AuthContext);
   const [books, setBooks] = useState<any[]>([]);
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(1);
+
+  const { token } = useContext(AuthContext);
 
   const _createBook = async (values: any) => {
     try {
       const res = await createBook(values, token);
       const new_book = res.data.book;
       setBooks((oldBooks) => [new_book, ...oldBooks]);
+    } catch (err) {
+      if (err.response.status === 406)
+        return {
+          errors: err.response.data.error.details.map(
+            (error: any) => error.message
+          ),
+        };
+
+      return { errors: [err.response.data.message] };
+    }
+
+    return { errors: false };
+  };
+
+  const _fetchBookPage = async (search: string) => {
+    try {
+      const res = await fetchBookPage(search, token);
+      setBooks(res.data.books);
+      setCount(res.data.count);
+
+      const pagination = queryString.parse(search);
+      setPage(parseInt(pagination.page as string));
     } catch (err) {
       if (err.response.status === 406)
         return {
@@ -85,7 +117,8 @@ const AuthService = ({ children }: { children: any }) => {
     (async () => {
       try {
         const res = await getBooks(token);
-        setBooks(res.data);
+        setBooks(res.data.books);
+        setCount(res.data.count);
       } catch (err) {
         console.log("Failed to get books");
         console.log(err.response);
@@ -103,7 +136,10 @@ const AuthService = ({ children }: { children: any }) => {
     <BooksContext.Provider
       value={{
         books,
+        page,
+        count,
         getBook: _getBook,
+        fetchBookPage: _fetchBookPage,
         createBook: _createBook,
         updateBook: _updateBook,
         deleteBook: _deleteBook,

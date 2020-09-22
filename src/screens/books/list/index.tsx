@@ -1,5 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
+
 import {
   FlexColumnExpand as FCE,
   FlexColumn,
@@ -13,6 +15,7 @@ import BooksContext from "../../../contexts/books.context";
 import BookDisplay from "./BookDisplay";
 import BookDetailsModal from "./BookDetailsModal";
 import useWindowSize from "../../../hooks/useWindowSize";
+import Pagination from "./Pagination";
 
 interface BookType {
   id: number;
@@ -62,8 +65,11 @@ const EmailLogout = styled(FlexRow)`
 
 const BookList = () => {
   const { user, logout } = useContext(AuthContext);
-  const { books, deleteBook } = useContext(BooksContext);
+  const { books, page, count, deleteBook, fetchBookPage } = useContext(
+    BooksContext
+  );
   const { width } = useWindowSize();
+  const { search } = useLocation();
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [book, setBook] = useState<BookType | {}>({});
@@ -80,6 +86,12 @@ const BookList = () => {
     deleteBook(valid_book.id);
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    if (!search) return;
+    fetchBookPage(search);
+    // eslint-disable-next-line
+  }, [search]);
 
   return (
     <FlexColumnExpand>
@@ -115,7 +127,9 @@ const BookList = () => {
           </DivWrapper>
         ))}
       </BookColumn>
-      <FlexColumn margin="12px 0 0">pagination</FlexColumn>
+      <FlexColumn margin="12px 0 0">
+        <Pagination url="/" page={page} count={count} />
+      </FlexColumn>
       <BookDetailsModal
         isOpen={modalIsOpen}
         closeModal={() => setIsOpen(false)}
